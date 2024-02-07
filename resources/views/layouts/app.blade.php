@@ -13,8 +13,17 @@
             <div class="container mx-auto flex justify-between items-center">
                 <h1 class="text-3xl font-black"><a href="/">Devstagram</a></h1>
                 <nav class="flex gap-4 items-center">
-                    <a class="text-gray-600" href="/signin">Login</a>
-                    <a class="text-gray-600" href="{{ route('signup') }}">Registro</a>
+                    @auth
+                        <a class="text-gray-600" href="/login">Hola, {{ auth()->user()->username }}</a>
+                        <form action="{{ route('logout') }}" method="POST">
+                            @csrf
+                            <button type="submit" class="text-gray-600">Cerrar sesión</button>
+                        </form>
+                    @endauth
+                    @guest
+                        <a class="text-gray-600" href="/login">Login</a>
+                        <a class="text-gray-600" href="{{ route('signup') }}">Registro</a>
+                    @endguest
                 </nav>
             </div>
         </header>
